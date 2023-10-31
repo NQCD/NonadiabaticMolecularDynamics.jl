@@ -37,6 +37,7 @@ using NQCModels.AdiabaticModels: AdiabaticModel
 
 export generate_configurations
 export quantise_diatomic
+export binding_curve_from_structure
 
 const TIMER = TimerOutputs.TimerOutput()
 
