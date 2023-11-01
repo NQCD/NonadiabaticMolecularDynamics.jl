@@ -4,6 +4,8 @@ using Optim: Optim
 using QuadGK: QuadGK
 using LinearAlgebra: LinearAlgebra, diagind
 
+export evaluate_friction!
+
 abstract type FrictionEvaluationMethod end
 
 struct DiabaticMDEF{M<:AbstractMatrix,F<:FrictionEvaluationMethod} <: AbstractMDEF
