@@ -75,6 +75,7 @@ function evaluate_friction!(Λ::AbstractMatrix, sim::Simulation{<:DiabaticMDEF},
         eigen = Calculators.get_eigen(sim.calculator, r)
         fill_friction_tensor!(Λ, sim.method.friction_method, ∂H, eigen, r, μ)
     end
+    println(Λ)
     return Λ
 end
 
