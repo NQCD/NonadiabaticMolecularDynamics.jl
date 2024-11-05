@@ -27,14 +27,6 @@ function DynamicsMethods.motion!(du, u, sim::RingPolymerSimulation{<:SurfaceHopp
     DynamicsUtils.set_quantum_derivative!(dσ, u, sim)
 end
 
-function DynamicsUtils.get_hopping_nonadiabatic_coupling(sim::RingPolymerSimulation, r::AbstractArray{T,3}) where {T}
-    return Calculators.get_centroid_nonadiabatic_coupling(sim.calculator, r)
-end
-
-function DynamicsUtils.get_hopping_velocity(::RingPolymerSimulation, v::AbstractArray{T,3}) where {T}
-    return get_centroid(v)
-end
-
 function perform_rescaling!(
     sim::RingPolymerSimulation{<:SurfaceHopping}, velocity, γ, d
 )
