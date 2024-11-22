@@ -14,7 +14,12 @@ end
 function DiabaticMDEF(masses::AbstractVector, DoFs::Integer, friction_method)
     DiabaticMDEF(get_mass_scale_matrix(masses, DoFs), friction_method)
 end
+"""
+    当你在生成 simulation 时, method 选择了 DiabaticMDEF
 
+    电脑会选择跑下面这段代码
+
+"""
 function NQCDynamics.Simulation{DiabaticMDEF}(atoms::Atoms, model::Model;
     friction_method, kwargs...
 )
@@ -136,17 +141,38 @@ function (friction_method::DirectQuadrature)(∂Hᵢ, ∂Hⱼ, eigenvalues, μ, 
     return out
 end
 
+"""
+WideBandExact is a method to evaulate friction that is exact for a wide band limit.
+
+    The function contains mainly three parts/steps:
+        1.struct type WideBandExact
+        2.compute the integral in the friction kernel
+        3.fill the friction tensor to evaluate_friction!
+
+    Usage: (potential, ∂potentialᵢ, ∂potentialⱼ) should be given
+
+
+    1.friction_method = WideBandExact(ρ, β)
+    
+    2.integral = friction_method(potential, ∂potentialᵢ, ∂potentialⱼ, μ, β)
+
+    3.fill_friction_tensor!(Λ, friction_method::WideBandExact, potential, derivative, r, μ)
+
+    The friction integral details is given in https://doi.org/10.1063/5.0137137 (Eq.33-34)
+
+"""
 struct WideBandExact{T} <: FrictionEvaluationMethod
     ρ::T
     β::T
 end
 function (friction_method::WideBandExact)(potential, ∂potentialᵢ, ∂potentialⱼ, μ, β)
+    # Read reference paper from the details
     h = potential[1,1]
     ∂hᵢ = ∂potentialᵢ[1,1]
     ∂hⱼ = ∂potentialⱼ[1,1]
 
     ρ = friction_method.ρ
-    Γ = 2π * potential[2,1]^2 * ρ
+    Γ = 2π * potential[2,1]^2 * ρ # hybridization function Γ = 2π * |V|^2 * ρ
     ∂Γ∂potential = sqrt(8π * ρ * Γ)
     ∂Γᵢ = ∂Γ∂potential * ∂potentialᵢ[2,1]
     ∂Γⱼ = ∂Γ∂potential * ∂potentialⱼ[2,1]

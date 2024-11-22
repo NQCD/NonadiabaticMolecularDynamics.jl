@@ -32,6 +32,8 @@ export run_trajectory
 Each type of dynamics subtypes `Method` which is passed to
 the `AbstractSimulation` as a parameter to determine the type of
 dynamics desired.
+
+julia> ttree(DynamicsMethods.Method)
 """
 abstract type Method end
 

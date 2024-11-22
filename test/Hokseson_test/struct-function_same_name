@@ -1,0 +1,31 @@
+# Define a simple type named Point
+struct Point
+    x
+    y::Float64
+end
+
+
+
+# Constructor function for Point
+# 由于我们设置多了一个变量 t， 所以我们在call Point的时候
+# 多一个参数 t 就跑 function
+# 总结！定义 同名 function 用来 丰富 struct的功能
+function Point(x::Float64, y::Float64, t::Bool)
+    # This function is defined to convert x to Int64 if t is true otherwise leave it as Float64
+    if t == true
+        x = convert(Int64, x)
+    end
+
+    Point(x, y)
+end
+
+# Create an instance of Point using the constructor function
+my_point = Point(3.0, 4.0, true)
+
+# 直接跑 struct 创造 object
+# my_point = Point(3.0, 4.0)
+
+# Display the created instance
+println("Point Instance:")
+println("x: ", my_point.x)
+println("y: ", my_point.y)

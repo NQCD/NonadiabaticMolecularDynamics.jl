@@ -53,6 +53,14 @@ struct VerletwithElectronics <: OrdinaryDiffEq.OrdinaryDiffEqAlgorithm end
 struct MDEF_BAOAB <: StochasticDiffEq.StochasticDiffEqAlgorithm end
 struct BCOCB <: StochasticDiffEq.StochasticDiffEqAlgorithm end
 
+
+"""
+This block of code below is to select the algorithm for each type of simulation.
+
+    
+
+"""
+
 DynamicsMethods.select_algorithm(::RingPolymerSimulation{<:DynamicsMethods.SurfaceHoppingMethods.SurfaceHopping}) = BCBwithTsit5(OrdinaryDiffEq.Tsit5())
 DynamicsMethods.select_algorithm(::RingPolymerSimulation{<:DynamicsMethods.EhrenfestMethods.AbstractEhrenfest}) = BCBwithTsit5(OrdinaryDiffEq.Tsit5())
 DynamicsMethods.select_algorithm(::Simulation{<:DynamicsMethods.ClassicalMethods.AbstractMDEF}) = MDEF_BAOAB()

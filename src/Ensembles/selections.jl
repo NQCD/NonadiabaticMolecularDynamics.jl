@@ -1,6 +1,11 @@
 
 using NQCDistributions: DynamicalDistribution, ProductDistribution
 
+"""
+Check the tree structure of the type.
+julia> ttree(Ensembles.AbstractSelection)
+"""
+
 abstract type AbstractSelection end
 
 """
