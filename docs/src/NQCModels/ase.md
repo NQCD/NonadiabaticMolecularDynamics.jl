@@ -56,7 +56,7 @@ derivative(model, rand(3, 2))
     the `get_potential_energy` and `get_forces` functions. For instance, you can use
     [SchNetPack (SPK)](https://github.com/atomistic-machine-learning/schnetpack) by
     passing their ASE calculator to the `AdiabaticASEModel`.
-    Take a look at [Neural network models](@ref) to learn more.
+    Take a look at [machine learning models](@ref ml-pes-models) to learn more.
 ```@setup logging
 runtime = round(time() - start_time; digits=2)
 @info "...done after $runtime s."

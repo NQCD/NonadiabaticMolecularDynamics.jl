@@ -1,7 +1,7 @@
 using Documenter
 using DocumenterCitations
 using NQCBase, NQCModels, NQCDistributions, NQCDynamics
-using CubeLDFAModel, NNInterfaces
+using FrictionProviders
 
 bib = CitationBibliography(joinpath(@__DIR__, "references.bib"))
 
@@ -15,7 +15,7 @@ end
 @time makedocs(;
     plugins=[bib],
     sitename="NQCDynamics.jl",
-    modules=[NQCDynamics, NQCDistributions, NQCModels, NQCBase, CubeLDFAModel],
+    modules=[NQCDynamics, NQCDistributions, NQCModels, NQCBase, FrictionProviders],
     doctest=false,
     format=Documenter.HTML(
         prettyurls=get(ENV, "CI", nothing) == "true",
@@ -33,7 +33,7 @@ end
             "NQCModels/overview.md"
             "NQCModels/analyticmodels.md"
             "NQCModels/ase.md"
-            "NQCModels/neuralnetworkmodels.md"
+            "NQCModels/machinelearningmodels.md"
             "NQCModels/frictionmodels.md"
         ]
         "NQCDistributions.jl" => Any[
