@@ -107,7 +107,7 @@ cubic Spline functions. The Wigner-Seitz radius is connected to the metal substr
 ```
 
 In this way, the electron density associated with the current substrate atom position is used to compute the respective friction coefficient through fitting function for each point of the trajectory.
-Visit the [CubeLDFAModel.jl](@ref models-cubeldfa) to learn more about how this is evaluated.
+Visit the [FrictionProviders.jl](@ref models-friction) to learn more about how this is evaluated.
 
 ## Time-dependent Perturbation theory (TDPT)
 

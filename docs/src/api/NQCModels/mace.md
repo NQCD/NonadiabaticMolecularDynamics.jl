@@ -6,7 +6,7 @@ start_time = time()
 # MACEModels.jl
 
 ```@autodocs
-Modules = [MACEModels]
+Modules = [MACEModels, MACEModels.Ensemble]
 Private = true
 ```
 

@@ -1,26 +1,32 @@
 using Documenter
 using DocumenterCitations
-using NQCBase, NQCModels, NQCDistributions, NQCDynamics, MACEModels
-using CubeLDFAModel, NNInterfaces
+using NQCBase, NQCModels, NQCDistributions, NQCDynamics
+using FrictionProviders
+using MACEModels
 
 bib = CitationBibliography(joinpath(@__DIR__, "references.bib"))
 
 function find_all_files(directory)
-    map(
-        s -> joinpath(directory, s),
-        sort(readdir(joinpath(@__DIR__, "src", directory)))
-    )
+    files = String[]
+    for potential_file in sort(readdir(joinpath(@__DIR__, "src", directory)))
+        if potential_file[1] != "." # Ensure we aren't adding any hidden files
+            push!(files, joinpath(directory, potential_file))
+        end
+    end
+    return files
 end
 
 @time makedocs(;
     plugins=[bib],
     sitename="NQCDynamics.jl",
-    modules=[NQCDynamics, NQCDistributions, NQCModels, NQCBase, CubeLDFAModel, MACEModels],
+    modules=[NQCDynamics, NQCDistributions, NQCModels, NQCBase, MACEModels, FrictionProviders],
     doctest=false,
     format=Documenter.HTML(
         prettyurls=get(ENV, "CI", nothing) == "true",
         canonical="https://nqcd.github.io/NQCDynamics.jl/stable/",
         assets=["assets/favicon.ico", "assets/citations.css"],
+        size_threshold = 5000*1024,
+        example_size_threshold = 8000*1024,
         size_threshold = 5000*1024,
         example_size_threshold = 8000*1024,
     ),
@@ -34,10 +40,11 @@ end
         "NQCModels.jl" => Any[
             "NQCModels/overview.md"
             "NQCModels/combining_models.md"
+            "NQCModels/combining_models.md"
             "NQCModels/analyticmodels.md"
+            "NQCModels/machinelearningmodels.md"
             "NQCModels/fullsizemodels.md"
             "NQCModels/frictionmodels.md"
-            "NQCModels/neuralnetworkmodels.md"
         ]
         "NQCDistributions.jl" => Any[
             "NQCDistributions/overview.md"

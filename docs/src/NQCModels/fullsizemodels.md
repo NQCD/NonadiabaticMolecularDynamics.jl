@@ -13,7 +13,7 @@ use the interfaces implemented in [ASE](https://wiki.fysik.dtu.dk/ase/).
 We provide the [`AdiabaticASEModel`](@ref) which wraps an ASE atoms object and its
 associated calculator to implement the required [`potential`](@ref) and
 [`derivative`](@ref) functions.
-Several examples for connecting common machine-learning interatomic potentials to NQCModels.jl through the ASE interface are shown in the [MLIP examples](@ref) section.
+Several examples for connecting common machine-learning interatomic potentials to NQCModels.jl through the ASE interface are shown in the [MLIP examples](@ref ml-pes-models) section.
 
 !!! note
 
@@ -64,7 +64,7 @@ derivative(model, rand(3, 2))
     the `get_potential_energy` and `get_forces` functions. For instance, you can use
     [SchNetPack (SPK)](https://github.com/atomistic-machine-learning/schnetpack) by
     passing their ASE calculator to the `AdiabaticASEModel`.
-    Take a look at [MLIP examples](@ref) to learn more.
+    Take a look at [MLIP examples](@ref ml-pes-models) to learn more.
 
 ## MACE interface
 

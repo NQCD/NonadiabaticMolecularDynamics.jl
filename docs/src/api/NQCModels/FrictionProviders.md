@@ -1,12 +1,12 @@
 ```@setup logging
-@info "Expanding src/api/NQCModels/cubeldfamodel.md..."
+@info "Expanding src/api/NQCModels/frictionmodels.md..."
 start_time = time()
 ```
 
-# CubeLDFAModel
+# FrictionModels
 
 ```@autodocs
-Modules=[CubeLDFAModel]
+Modules=[NQCModels.FrictionModels]
 ```
 ```@setup logging
 runtime = round(time() - start_time; digits=2)
