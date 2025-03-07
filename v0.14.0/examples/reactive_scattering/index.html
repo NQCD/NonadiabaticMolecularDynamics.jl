@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Reactive scattering from a metal surface · NQCDynamics.jl</title><meta name="title" content="Reactive scattering from a metal surface · NQCDynamics.jl"/><meta property="og:title" content="Reactive scattering from a metal surface · NQCDynamics.jl"/><meta property="twitter:title" content="Reactive scattering from a metal surface · NQCDynamics.jl"/><meta name="description" content="Documentation for NQCDynamics.jl."/><meta property="og:description" content="Documentation for NQCDynamics.jl."/><meta property="twitter:description" content="Documentation for NQCDynamics.jl."/><meta property="og:url" content="https://nqcd.github.io/NQCDynamics.jl/stable/examples/reactive_scattering/"/><meta property="twitter:url" content="https://nqcd.github.io/NQCDynamics.jl/stable/examples/reactive_scattering/"/><link rel="canonical" href="https://nqcd.github.io/NQCDynamics.jl/stable/examples/reactive_scattering/"/><script data-outdated-warner src="../../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.050/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../search_index.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../assets/themeswap.js"></script><link href="../../assets/favicon.ico" rel="icon" type="image/x-icon"/><link href="../../assets/citations.css" rel="stylesheet" type="text/css"/></head><body><div id="documenter"><nav class="docs-sidebar"><a class="docs-logo" href="../../"><img src="../../assets/logo.svg" alt="NQCDynamics.jl logo"/></a><div class="docs-package-name"><span class="docs-autofit"><a href="../../">NQCDynamics.jl</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../../">Introduction</a></li><li><a class="tocitem" href="../../getting_started/">Getting started</a></li><li><a class="tocitem" href="../../atoms/">Atoms</a></li><li><a class="tocitem" href="../../ensemble_simulations/">Ensemble simulations</a></li><li><a class="tocitem" href="../../saving_loading/">Saving and loading</a></li><li><span class="tocitem">NQCModels.jl</span><ul><li><a class="tocitem" href="../../NQCModels/overview/">NQCModels.jl</a></li><li><a class="tocitem" href="../../NQCModels/analyticmodels/">Analytic model library</a></li><li><a class="tocitem" href="../../NQCModels/ase/">ASE interface</a></li><li><a class="tocitem" href="../../NQCModels/neuralnetworkmodels/">Neural network models</a></li><li><a class="tocitem" href="../../NQCModels/frictionmodels/">Electronic friction models</a></li></ul></li><li><span class="tocitem">NQCDistributions.jl</span><ul><li><a class="tocitem" href="../../NQCDistributions/overview/">NQCDistributions.jl</a></li></ul></li><li><span class="tocitem">Initial conditions</span><ul><li><a class="tocitem" href="../../initialconditions/ebk/">Semiclassical EBK quantisation</a></li><li><a class="tocitem" href="../../initialconditions/hamiltonian/">Thermal Hamiltonian Monte Carlo</a></li><li><a class="tocitem" href="../../initialconditions/langevin/">Thermal Langevin dynamics</a></li><li><a class="tocitem" href="../../initialconditions/metropolishastings/">Thermal Metropolis-Hastings Monte Carlo</a></li></ul></li><li><span class="tocitem">Dynamics simulations</span><ul><li><a class="tocitem" href="../../dynamicssimulations/dynamicssimulations/">Introduction</a></li><li><a class="tocitem" href="../../dynamicssimulations/dynamicsmethods/classical/">Classical molecular dynamics</a></li><li><a class="tocitem" href="../../dynamicssimulations/dynamicsmethods/ehrenfest/">Ehrenfest molecular dynamics</a></li><li><a class="tocitem" href="../../dynamicssimulations/dynamicsmethods/fssh/">Fewest-switches surface hopping (FSSH)</a></li><li><a class="tocitem" href="../../dynamicssimulations/dynamicsmethods/langevin/">Classical Langevin dynamics</a></li><li><a class="tocitem" href="../../dynamicssimulations/dynamicsmethods/mdef/">Molecular dynamics with electronic friction (MDEF)</a></li><li><a class="tocitem" href="../../dynamicssimulations/dynamicsmethods/nrpmd/">Nonadiabatic ring polymer molecular dynamics (NRPMD)</a></li><li><a class="tocitem" href="../../dynamicssimulations/dynamicsmethods/rpmd/">Ring polymer molecular dynamics (RPMD)</a></li><li><a class="tocitem" href="../../dynamicssimulations/dynamicsmethods/rpsh/">Ring polymer surface hopping (RPSH)</a></li></ul></li><li><span class="tocitem">Outputs and Analysis</span><ul><li><a class="tocitem" href="../../output_and_analysis/intro/">Simulations outputs and analysis functions</a></li></ul></li><li><span class="tocitem">Examples</span><ul><li class="is-active"><a class="tocitem" href>Reactive scattering from a metal surface</a><ul class="internal"><li><a class="tocitem" href="#Data-analysis-and-truncation-function"><span>Data analysis and truncation function</span></a></li><li><a class="tocitem" href="#MDEF-with-the-LDFA"><span>MDEF with the LDFA</span></a></li><li><a class="tocitem" href="#MDEF-with-neural-network-friction"><span>MDEF with neural network friction</span></a></li><li><a class="tocitem" href="#Visualisation"><span>Visualisation</span></a></li></ul></li><li><a class="tocitem" href="../spinboson/">Ohmic spin-boson nonequilibrium population dynamics</a></li><li><a class="tocitem" href="../threestatemorse/">Time-dependent populations with the ThreeStateMorse model</a></li><li><a class="tocitem" href="../tully_scattering/">Scattering probabilities for TullyModelTwo</a></li></ul></li><li><a class="tocitem" href="../../integration_algorithms/">Integration algorithms</a></li><li><span class="tocitem">Developer documentation</span><ul><li><a class="tocitem" href="../../devdocs/diffeq/">DifferentialEquations.jl integration</a></li><li><a class="tocitem" href="../../devdocs/models/">Implementing a new model</a></li><li><a class="tocitem" href="../../devdocs/new_methods/">Contributing a new method</a></li></ul></li><li><span class="tocitem">API</span><ul><li><input class="collapse-toggle" id="menuitem-14-1" type="checkbox"/><label class="tocitem" for="menuitem-14-1"><span class="docs-label">NQCBase</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../api/NQCBase/nqcbase/">NQCBase</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-14-2" type="checkbox"/><label class="tocitem" for="menuitem-14-2"><span class="docs-label">NQCModels</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../api/NQCModels/adiabaticmodels/">AdiabaticModels</a></li><li><a class="tocitem" href="../../api/NQCModels/cubeldfamodel/">CubeLDFAModel</a></li><li><a class="tocitem" href="../../api/NQCModels/diabaticmodels/">DiabaticModels</a></li><li><a class="tocitem" href="../../api/NQCModels/frictionmodels/">FrictionModels</a></li><li><a class="tocitem" href="../../api/NQCModels/nninterfaces/">NNInterfaces</a></li><li><a class="tocitem" href="../../api/NQCModels/nonadiabaticmodels/">NQCModels</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-14-3" type="checkbox"/><label class="tocitem" for="menuitem-14-3"><span class="docs-label">NQCDistributions</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../api/NQCDistributions/nqcdistributions/">NQCDistributions</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-14-4" type="checkbox"/><label class="tocitem" for="menuitem-14-4"><span class="docs-label">NQCDynamics</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../api/NQCDynamics/analysis/">Analysis</a></li><li><a class="tocitem" href="../../api/NQCDynamics/calculators/">Calculators</a></li><li><a class="tocitem" href="../../api/NQCDynamics/dynamicsmethods/">DynamicsMethods</a></li><li><a class="tocitem" href="../../api/NQCDynamics/dynamicsoutputs/">DynamicsOutputs</a></li><li><a class="tocitem" href="../../api/NQCDynamics/dynamicsutils/">DynamicsUtils</a></li><li><a class="tocitem" href="../../api/NQCDynamics/ensembles/">Ensembles</a></li><li><a class="tocitem" href="../../api/NQCDynamics/estimators/">Estimators</a></li><li><a class="tocitem" href="../../api/NQCDynamics/initialconditions/">InitialConditions</a></li><li><a class="tocitem" href="../../api/NQCDynamics/nonadiabaticmoleculardynamics/">NQCDynamics</a></li><li><a class="tocitem" href="../../api/NQCDynamics/numericutils/">Numerical utilities</a></li><li><a class="tocitem" href="../../api/NQCDynamics/ringpolymers/">RingPolymers</a></li><li><a class="tocitem" href="../../api/NQCDynamics/structure/">Structure</a></li><li><a class="tocitem" href="../../api/NQCDynamics/timecorrelationfunctions/">TimeCorrelationFunctions</a></li></ul></li></ul></li><li><a class="tocitem" href="../../references/">References</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">Examples</a></li><li class="is-active"><a href>Reactive scattering from a metal surface</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Reactive scattering from a metal surface</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/NQCD/NQCDynamics.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/NQCD/NQCDynamics.jl/blob/main/docs/src/examples/reactive_scattering.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="example-h2scattering"><a class="docs-heading-anchor" href="#example-h2scattering">Reactive scattering from a metal surface</a><a id="example-h2scattering-1"></a><a class="docs-heading-anchor-permalink" href="#example-h2scattering" title="Permalink"></a></h1><p>Our implementation allows us to simulate vibrational de-excitation probability during reactive scattering events at metal surfaces for any diatomic molecule  with a suitable model to describe energies and forces (and friction coefficients for MDEF simulations).  Here, we investigate the reactive scattering of hydrogen on a Ag(111) metal surface as a prototypical example.</p><p>To run this kind of simulation, a set of initial positions and velocities (<span>$\mathbf{R}$</span> and <span>$\mathbf{\dot{R}}$</span>) with ro-vibrational quantum states <span>$\nu$</span> and <span>$j$</span> have to be generated (see <a href="../../initialconditions/ebk/#ebk-sampling">EBK quantisation</a>). With a specific ro-vibrational quantum state it is possible to compute different properties after molecular collision and energy transfer with the metal surface like the vibrational de-excitation probabilities discussed here.</p><p>In order to reproduce the state-to-state vibrational de-excitation probability results presented originally by [<a href="../../references/#Maurer2019">21</a>] for this system, the same initial conditions were generated with <a href="../../api/NQCDynamics/initialconditions/#NQCDynamics.InitialConditions.QuantisedDiatomic.generate_configurations-Tuple{Any, Any, Any}"><code>QuantisedDiatomic.generate_configurations</code></a> setting the initial ro-vibrational quantum state to (<span>$\nu=2, j=0$</span>) as was explored in the original paper. </p><p>As shown earlier in the <a href="../../initialconditions/ebk/#ebk-sampling">EBK documentation</a> we are able to generate a semiclassically quantised distribution for a diatomic molecule on a collision course with a metal surface. In this example we follow the <a href="../../initialconditions/ebk/#ebk-sampling">EBK example</a> using the <a href="../../api/NQCModels/nninterfaces/#NNInterfaces.H2AgModel"><code>H2AgModel</code></a> to prepare our initial distribution and run our simulation.</p><p>Specifically, we have produced a set of initial conditions with different translational energy (<code>translational_energy</code> keyword) ranging from 0.2 to 1.4 eV, locating the hydrogen molecule 8 Å away from the metal surface (<code>height</code> keyword) with a normal incidence.</p><div class="admonition is-info"><header class="admonition-header">Atomic units</header><div class="admonition-body"><p>As usual, all quantities default to atomic units. Here we use <a href="https://painterqubits.github.io/Unitful.jl/stable/">Unitful</a> to input the translational energy and height using different units, where they are later converted internally.</p></div></div><pre><code class="language-julia hljs">using NQCDynamics
+using NNInterfaces
+using Unitful
+using NQCDynamics.InitialConditions: QuantisedDiatomic
+using JLD2
+
+atoms = Atoms([:H, :H])
+model = H2AgModel()
+cell = PeriodicCell([11.1175 -5.5588 0.0; 0.0 9.628 0.0; 0.0 0.0 70.3079])
+sim = Simulation(atoms, model; cell=cell)
+
+ν, J = 2, 0     # selected ro-vibrational quantum states
+nsamples = 300  # number of configurations
+Ek = 0.5u&quot;eV&quot;   # Translational energy [eV] ; range considered [0.2-1.4] eV
+z = 8.0u&quot;Å&quot;     # Height [Å]  ; fixed at 8 Å
+
+configurations = QuantisedDiatomic.generate_configurations(sim, ν, J;
+    samples=nsamples, translational_energy=Ek, height=z)
+v = first.(configurations)
+r = last.(configurations)
+
+distribution = DynamicalDistribution(v, r, (3,2))</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi"> read all parameters done
+                                       <span class="sgr97"><span class="sgr1">Binding curve</span></span>
+                        <span class="sgr90">+----------------------------------------+</span>
+                    <span class="sgr90">0.5</span> <span class="sgr90">|</span>                                        <span class="sgr90">|</span> <span class="sgr32">Actual values</span>
+                        <span class="sgr90">|</span>                                        <span class="sgr90">|</span> <span class="sgr34">Fitted curve</span>
+                        <span class="sgr90">|</span>    <span class="sgr36">.</span>                                   <span class="sgr90">|</span> 
+                        <span class="sgr90">|</span>    <span class="sgr36">:</span>                                   <span class="sgr90">|</span> 
+                        <span class="sgr90">|</span>    <span class="sgr36">:</span>                                   <span class="sgr90">|</span> 
+                        <span class="sgr90">|</span>    <span class="sgr36">:.</span>                                  <span class="sgr90">|</span> 
+                        <span class="sgr90">|</span>     <span class="sgr36">:</span>                                  <span class="sgr90">|</span> 
+   Energy / Hartree     <span class="sgr90">|</span>     <span class="sgr36">:</span>                                  <span class="sgr90">|</span> 
+                        <span class="sgr90">|</span>     <span class="sgr36">:</span>                                  <span class="sgr90">|</span> 
+                        <span class="sgr90">|</span>      <span class="sgr36">:</span>                       <span class="sgr36">....:&#39;&#39;&#39;&#39;&#39;</span><span class="sgr90">|</span> 
+                        <span class="sgr90">|</span>      <span class="sgr36">:</span>                  <span class="sgr36">...&#39;&#39;&#39;</span>         <span class="sgr90">|</span> 
+                        <span class="sgr90">|</span>      <span class="sgr36">:.</span>              <span class="sgr36">.:&#39;&#39;</span>              <span class="sgr90">|</span> 
+                        <span class="sgr90">|</span>       <span class="sgr36">:</span>          <span class="sgr36">..:&#39;&#39;</span>                 <span class="sgr90">|</span> 
+                        <span class="sgr90">|</span>       <span class="sgr36">&#39;:</span>       <span class="sgr36">.:&#39;</span>                     <span class="sgr90">|</span> 
+                      <span class="sgr90">0</span> <span class="sgr90">|</span>        <span class="sgr36">&#39;:....:&#39;</span>                        <span class="sgr90">|</span> 
+                        <span class="sgr90">+----------------------------------------+</span>
+                         <span class="sgr90">0</span>                                      <span class="sgr90">5</span>
+                                    Bond length / bohr
+<span class="sgr36"><span class="sgr1">[ Info: </span></span>The two lines shown above should closely match. This indicates the evaluation of the potential is working correctly.
+<span class="sgr36"><span class="sgr1">[ Info: </span></span>Converging the total energy to match the chosen quantum numbers...
+Iter     Function value   Gradient norm
+     0     1.700968e-01     5.782251e+01
+ * time: 0.016371965408325195
+     1     7.932366e-02     5.704135e+01
+ * time: 0.5253541469573975
+     2     3.667518e-02     5.740255e+01
+ * time: 0.5254859924316406
+     3     3.486622e-03     5.727708e+01
+ * time: 0.5255601406097412
+<span class="sgr36"><span class="sgr1">[ Info: </span></span>Generating distribution of bond lengths and radial momenta...
+<span class="sgr32">Sampling   0%|                                          |  ETA: N/A</span>
+<span class="sgr32">Sampling   0%|▏                                         |  ETA: 0:00:03</span>
+<span class="sgr32">Sampling   1%|▎                                         |  ETA: 0:00:04</span>
+<span class="sgr32">Sampling   1%|▍                                         |  ETA: 0:00:03</span>
+<span class="sgr32">Sampling   1%|▌                                         |  ETA: 0:00:02</span>
+<span class="sgr32">Sampling   2%|▊                                         |  ETA: 0:00:02</span>
+<span class="sgr32">Sampling   2%|▉                                         |  ETA: 0:00:01</span>
+<span class="sgr32">Sampling   2%|█                                         |  ETA: 0:00:01</span>
+<span class="sgr32">Sampling   3%|█▏                                        |  ETA: 0:00:01</span>
+<span class="sgr32">Sampling   3%|█▎                                        |  ETA: 0:00:01</span>
+<span class="sgr32">Sampling   3%|█▍                                        |  ETA: 0:00:01</span>
+<span class="sgr32">Sampling   4%|█▌                                        |  ETA: 0:00:01</span>
+<span class="sgr32">Sampling   4%|█▋                                        |  ETA: 0:00:01</span>
+<span class="sgr32">Sampling   4%|█▉                                        |  ETA: 0:00:01</span>
+<span class="sgr32">Sampling   5%|██                                        |  ETA: 0:00:01</span>
+<span class="sgr32">Sampling   5%|██▏                                       |  ETA: 0:00:01</span>
+<span class="sgr32">Sampling   5%|██▎                                       |  ETA: 0:00:01</span>
+<span class="sgr32">Sampling   6%|██▍                                       |  ETA: 0:00:01</span>
+<span class="sgr32">Sampling   6%|██▌                                       |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling   6%|██▋                                       |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling   7%|██▊                                       |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling   7%|███                                       |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling   7%|███▏                                      |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling   8%|███▎                                      |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling   8%|███▍                                      |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling   8%|███▌                                      |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling   9%|███▋                                      |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling   9%|███▊                                      |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling   9%|███▉                                      |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  10%|████                                      |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  10%|████▎                                     |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  10%|████▍                                     |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  11%|████▌                                     |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  11%|████▋                                     |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  11%|████▊                                     |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  12%|████▉                                     |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  12%|█████                                     |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  12%|█████▏                                    |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  13%|█████▍                                    |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  13%|█████▌                                    |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  13%|█████▋                                    |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  14%|█████▊                                    |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  14%|█████▉                                    |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  14%|██████                                    |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  15%|██████▏                                   |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  15%|██████▎                                   |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  15%|██████▌                                   |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  16%|██████▋                                   |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  16%|██████▊                                   |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  16%|██████▉                                   |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  17%|███████                                   |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  17%|███████▏                                  |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  17%|███████▎                                  |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  18%|███████▍                                  |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  18%|███████▌                                  |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  18%|███████▊                                  |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  19%|███████▉                                  |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  19%|████████                                  |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  19%|████████▏                                 |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  20%|████████▎                                 |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  20%|████████▍                                 |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  20%|████████▌                                 |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  21%|████████▋                                 |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  21%|████████▉                                 |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  21%|█████████                                 |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  22%|█████████▏                                |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  22%|█████████▎                                |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  22%|█████████▍                                |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  23%|█████████▌                                |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  23%|█████████▋                                |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  23%|█████████▊                                |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  24%|██████████                                |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  24%|██████████▏                               |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  24%|██████████▎                               |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  25%|██████████▍                               |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  25%|██████████▌                               |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  25%|██████████▋                               |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  26%|██████████▊                               |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  26%|██████████▉                               |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  26%|███████████                               |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  27%|███████████▎                              |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  27%|███████████▍                              |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  27%|███████████▌                              |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  28%|███████████▋                              |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  28%|███████████▊                              |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  28%|███████████▉                              |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  29%|████████████                              |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  29%|████████████▏                             |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  29%|████████████▍                             |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  30%|████████████▌                             |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  30%|████████████▋                             |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  30%|████████████▊                             |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  31%|████████████▉                             |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  31%|█████████████                             |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  31%|█████████████▏                            |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  32%|█████████████▎                            |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  32%|█████████████▌                            |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  32%|█████████████▋                            |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  33%|█████████████▊                            |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  33%|█████████████▉                            |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  33%|██████████████                            |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  34%|██████████████▏                           |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  34%|██████████████▎                           |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  34%|██████████████▍                           |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  35%|██████████████▌                           |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  35%|██████████████▊                           |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  35%|██████████████▉                           |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  36%|███████████████                           |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  36%|███████████████▏                          |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  36%|███████████████▎                          |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  37%|███████████████▍                          |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  37%|███████████████▌                          |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  37%|███████████████▋                          |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  38%|███████████████▉                          |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  38%|████████████████                          |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  38%|████████████████▏                         |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  39%|████████████████▎                         |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  39%|████████████████▍                         |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  39%|████████████████▌                         |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  40%|████████████████▋                         |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  40%|████████████████▊                         |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  40%|█████████████████                         |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  41%|█████████████████▏                        |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  41%|█████████████████▎                        |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  41%|█████████████████▍                        |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  42%|█████████████████▌                        |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  42%|█████████████████▋                        |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  42%|█████████████████▊                        |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  43%|█████████████████▉                        |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  43%|██████████████████                        |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  43%|██████████████████▎                       |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  44%|██████████████████▍                       |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  44%|██████████████████▌                       |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  44%|██████████████████▋                       |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  45%|██████████████████▊                       |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  45%|██████████████████▉                       |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  45%|███████████████████                       |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  46%|███████████████████▏                      |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  46%|███████████████████▍                      |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  46%|███████████████████▌                      |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  47%|███████████████████▋                      |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  47%|███████████████████▊                      |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  47%|███████████████████▉                      |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  48%|████████████████████                      |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  48%|████████████████████▏                     |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  48%|████████████████████▎                     |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  49%|████████████████████▌                     |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  49%|████████████████████▋                     |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  49%|████████████████████▊                     |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  50%|████████████████████▉                     |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  50%|█████████████████████                     |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  50%|█████████████████████▏                    |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  51%|█████████████████████▎                    |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  51%|█████████████████████▍                    |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  51%|█████████████████████▌                    |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  52%|█████████████████████▊                    |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  52%|█████████████████████▉                    |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  52%|██████████████████████                    |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  53%|██████████████████████▏                   |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  53%|██████████████████████▎                   |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  53%|██████████████████████▍                   |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  54%|██████████████████████▌                   |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  54%|██████████████████████▋                   |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  54%|██████████████████████▉                   |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  55%|███████████████████████                   |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  55%|███████████████████████▏                  |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  55%|███████████████████████▎                  |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  56%|███████████████████████▍                  |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  56%|███████████████████████▌                  |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  56%|███████████████████████▋                  |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  57%|███████████████████████▊                  |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  57%|████████████████████████                  |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  57%|████████████████████████▏                 |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  58%|████████████████████████▎                 |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  58%|████████████████████████▍                 |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  58%|████████████████████████▌                 |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  59%|████████████████████████▋                 |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  59%|████████████████████████▊                 |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  59%|████████████████████████▉                 |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  60%|█████████████████████████                 |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  60%|█████████████████████████▎                |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  60%|█████████████████████████▍                |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  61%|█████████████████████████▌                |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  61%|█████████████████████████▋                |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  61%|█████████████████████████▊                |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  62%|█████████████████████████▉                |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  62%|██████████████████████████                |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  62%|██████████████████████████▏               |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  63%|██████████████████████████▍               |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  63%|██████████████████████████▌               |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  63%|██████████████████████████▋               |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  64%|██████████████████████████▊               |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  64%|██████████████████████████▉               |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  64%|███████████████████████████               |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  65%|███████████████████████████▏              |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  65%|███████████████████████████▎              |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  65%|███████████████████████████▌              |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  66%|███████████████████████████▋              |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  66%|███████████████████████████▊              |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  66%|███████████████████████████▉              |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  67%|████████████████████████████              |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  67%|████████████████████████████▏             |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  67%|████████████████████████████▎             |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  68%|████████████████████████████▍             |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  68%|████████████████████████████▌             |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  68%|████████████████████████████▊             |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  69%|████████████████████████████▉             |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  69%|█████████████████████████████             |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  69%|█████████████████████████████▏            |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  70%|█████████████████████████████▎            |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  70%|█████████████████████████████▍            |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  70%|█████████████████████████████▌            |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  71%|█████████████████████████████▋            |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  71%|█████████████████████████████▉            |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  71%|██████████████████████████████            |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  72%|██████████████████████████████▏           |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  72%|██████████████████████████████▎           |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  72%|██████████████████████████████▍           |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  73%|██████████████████████████████▌           |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  73%|██████████████████████████████▋           |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  73%|██████████████████████████████▊           |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  74%|███████████████████████████████           |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  74%|███████████████████████████████▏          |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  74%|███████████████████████████████▎          |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  75%|███████████████████████████████▍          |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  75%|███████████████████████████████▌          |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  75%|███████████████████████████████▋          |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  76%|███████████████████████████████▊          |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  76%|███████████████████████████████▉          |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  76%|████████████████████████████████          |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  77%|████████████████████████████████▎         |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  77%|████████████████████████████████▍         |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  77%|████████████████████████████████▌         |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  78%|████████████████████████████████▋         |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  78%|████████████████████████████████▊         |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  78%|████████████████████████████████▉         |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  79%|█████████████████████████████████         |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  79%|█████████████████████████████████▏        |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  79%|█████████████████████████████████▍        |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  80%|█████████████████████████████████▌        |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  80%|█████████████████████████████████▋        |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  80%|█████████████████████████████████▊        |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  81%|█████████████████████████████████▉        |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  81%|██████████████████████████████████        |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  81%|██████████████████████████████████▏       |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  82%|██████████████████████████████████▎       |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  82%|██████████████████████████████████▌       |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  82%|██████████████████████████████████▋       |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  83%|██████████████████████████████████▊       |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  83%|██████████████████████████████████▉       |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  83%|███████████████████████████████████       |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  84%|███████████████████████████████████▏      |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  84%|███████████████████████████████████▎      |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  84%|███████████████████████████████████▍      |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  85%|███████████████████████████████████▌      |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  85%|███████████████████████████████████▊      |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  85%|███████████████████████████████████▉      |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  86%|████████████████████████████████████      |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  86%|████████████████████████████████████▏     |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  86%|████████████████████████████████████▎     |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  87%|████████████████████████████████████▍     |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  87%|████████████████████████████████████▌     |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  87%|████████████████████████████████████▋     |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  88%|████████████████████████████████████▉     |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  88%|█████████████████████████████████████     |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  88%|█████████████████████████████████████▏    |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  89%|█████████████████████████████████████▎    |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  89%|█████████████████████████████████████▍    |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  89%|█████████████████████████████████████▌    |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  90%|█████████████████████████████████████▋    |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  90%|█████████████████████████████████████▊    |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  90%|██████████████████████████████████████    |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  91%|██████████████████████████████████████▏   |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  91%|██████████████████████████████████████▎   |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  91%|██████████████████████████████████████▍   |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  92%|██████████████████████████████████████▌   |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  92%|██████████████████████████████████████▋   |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  92%|██████████████████████████████████████▊   |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  93%|██████████████████████████████████████▉   |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  93%|███████████████████████████████████████   |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  93%|███████████████████████████████████████▎  |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  94%|███████████████████████████████████████▍  |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  94%|███████████████████████████████████████▌  |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  94%|███████████████████████████████████████▋  |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  95%|███████████████████████████████████████▊  |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  95%|███████████████████████████████████████▉  |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  95%|████████████████████████████████████████  |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  96%|████████████████████████████████████████▏ |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  96%|████████████████████████████████████████▍ |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  96%|████████████████████████████████████████▌ |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  97%|████████████████████████████████████████▋ |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  97%|████████████████████████████████████████▊ |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  97%|████████████████████████████████████████▉ |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  98%|█████████████████████████████████████████ |  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  98%|█████████████████████████████████████████▏|  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  98%|█████████████████████████████████████████▎|  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  99%|█████████████████████████████████████████▌|  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  99%|█████████████████████████████████████████▋|  ETA: 0:00:00</span>
+<span class="sgr32">Sampling  99%|█████████████████████████████████████████▊|  ETA: 0:00:00</span>
+<span class="sgr32">Sampling 100%|█████████████████████████████████████████▉|  ETA: 0:00:00</span>
+<span class="sgr32">Sampling 100%|██████████████████████████████████████████| Time: 0:00:00</span>
+<span class="sgr90">Sampling 100%|██████████████████████████████████████████| Time: 0:00:00</span>
+                       <span class="sgr97"><span class="sgr1">Bond length distribution</span></span>
+              <span class="sgr90">+----------------------------------------+</span>
+   [1.0, 1.2) <span class="sgr90">|</span><span class="sgr32">█████████████████████████████▎</span> 68       <span class="sgr90">|</span> 
+   [1.2, 1.4) <span class="sgr90">|</span><span class="sgr32">██████████████████▊</span> 44                  <span class="sgr90">|</span> 
+   [1.4, 1.6) <span class="sgr90">|</span><span class="sgr32">███████████▎</span> 26                         <span class="sgr90">|</span> 
+   [1.6, 1.8) <span class="sgr90">|</span><span class="sgr32">██████████████▌</span> 34                      <span class="sgr90">|</span> 
+   [1.8, 2.0) <span class="sgr90">|</span><span class="sgr32">██████████████████▊</span> 44                  <span class="sgr90">|</span> 
+   [2.0, 2.2) <span class="sgr90">|</span><span class="sgr32">████████████████████████████████████ </span> 84<span class="sgr90">|</span> 
+              <span class="sgr90">+----------------------------------------+</span>
+                               Frequency
+                           <span class="sgr97"><span class="sgr1">Radial velocity distribution</span></span>
+                    <span class="sgr90">+----------------------------------------+</span>
+   [-0.01 , -0.008) <span class="sgr90">|</span><span class="sgr32">████████████████████████████████████ </span> 56<span class="sgr90">|</span> 
+   [-0.008, -0.006) <span class="sgr90">|</span><span class="sgr32">███████████████▌</span> 24                     <span class="sgr90">|</span> 
+   [-0.006, -0.004) <span class="sgr90">|</span><span class="sgr32">█████████▋</span> 15                           <span class="sgr90">|</span> 
+   [-0.004, -0.002) <span class="sgr90">|</span><span class="sgr32">█████████████▌</span> 21                       <span class="sgr90">|</span> 
+   [-0.002,  0.0  ) <span class="sgr90">|</span><span class="sgr32">█████████████▌</span> 21                       <span class="sgr90">|</span> 
+   [ 0.0  ,  0.002) <span class="sgr90">|</span><span class="sgr32">██████████████▊</span> 23                      <span class="sgr90">|</span> 
+   [ 0.002,  0.004) <span class="sgr90">|</span><span class="sgr32">███████████████████▉</span> 31                 <span class="sgr90">|</span> 
+   [ 0.004,  0.006) <span class="sgr90">|</span><span class="sgr32">█████████████████▍</span> 27                   <span class="sgr90">|</span> 
+   [ 0.006,  0.008) <span class="sgr90">|</span><span class="sgr32">███████████████████▍</span> 30                 <span class="sgr90">|</span> 
+   [ 0.008,  0.01 ) <span class="sgr90">|</span><span class="sgr32">█████████████████████████████████▌</span> 52   <span class="sgr90">|</span> 
+                    <span class="sgr90">+----------------------------------------+</span>
+                                     Frequency
+<span class="sgr36"><span class="sgr1">[ Info: </span></span>Generating the requested configurations...</code></pre><div class="admonition is-success"><header class="admonition-header">Saving the distribution</header><div class="admonition-body"><p>Generally it will be desirable to generate a distribution once and re-use it for multiple dynamics simulations. The simplest way to do this is to save the distribution using <a href="https://juliaio.github.io/JLD2.jl/dev/">JLD2.jl</a>. Refer to <a href="../../saving_loading/#saving-and-loading">Saving and loading</a> to learn more.</p></div></div><p>In order to produce an unweighted distribution, the lateral and angular orientation are randomly selected within the unit cell. As an example of the spacial and orientation distribution generated with this module, a subset of data (300 configurations) is shown below. To run our production simulations, however, a set of 80,000 initial velocities and positions were used.</p><p><img src="../../assets/figures/icond_scatter.png" alt="initial conditions"/></p><h2 id="Data-analysis-and-truncation-function"><a class="docs-heading-anchor" href="#Data-analysis-and-truncation-function">Data analysis and truncation function</a><a id="Data-analysis-and-truncation-function-1"></a><a class="docs-heading-anchor-permalink" href="#Data-analysis-and-truncation-function" title="Permalink"></a></h2><p>Since we are interested in the dynamics only when the molecule is close to the surface, we can use a callback to terminate the simulation early to save us some time. This requires defining a function that returns <code>true</code> when we want the simulation to terminate. This means we can set our time span relatively long since we expect most simulations to terminate before reaching the time limit.</p><pre><code class="language-julia hljs">using Statistics: mean
+using LinearAlgebra: norm
+
+h2distance(p) = norm(p[:,1] .- p[:,2])
+
+&quot;Terminates simulation if returns `true`.&quot;
+function termination_condition(u, t, integrator)::Bool
+    R = get_positions(u)
+    zcom = au_to_ang(mean(R[3,:]))          # Convert vertical centre of mass to angstrom
+    if zcom &gt; 8.1                           # Scattering event
+        return true
+    elseif au_to_ang(h2distance(R)) &gt; 2.5   # Reactive event
+        return true
+    else
+        return false
+    end
+end
+
+terminate = DynamicsUtils.TerminatingCallback(termination_condition)
+tspan = (0.0, 420.0u&quot;fs&quot;)</code></pre><p>In this example, we consider the outcome a reactive event if the H-H bond length is larger than 2.5 Å in any point of during the trajectory and a scattering event if the molecule rebounds to a vertical distance from the metal surface greater than 8.1 Å.</p><h2 id="MDEF-with-the-LDFA"><a class="docs-heading-anchor" href="#MDEF-with-the-LDFA">MDEF with the LDFA</a><a id="MDEF-with-the-LDFA-1"></a><a class="docs-heading-anchor-permalink" href="#MDEF-with-the-LDFA" title="Permalink"></a></h2><p>Now that we have set up the initial distribution and some of our simulation parameters, we can choose which form of friction we would like use. First, let&#39;s use the LDFA implementation provided by the <a href="../../NQCModels/frictionmodels/#models-cubeldfa">CubeLDFAModel</a>. This takes a <code>.cube</code> file containing the electron density and will provide the friction during the dynamics. Here we have given the new model our model from above, which will provide the forces.</p><pre><code class="language-julia hljs">using CubeLDFAModel
+model = LDFAModel(model, &quot;../assets/friction/test.cube&quot;, atoms, friction_atoms=[1,2], cell)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">LDFAModel{Float64, H2AgModel{Float64}, Vector{Any}}(H2AgModel{Float64}([1, 2], [0.0 -1.8709239713944754; 1.8709239713944754 0.0; 8.0 8.0], [0.0 0.0; 0.0 0.0; 0.0 0.0], [0.0 0.0 … 0.0 0.0; 0.0 0.0 … 0.0 0.0; … ; 0.0 0.0 … 0.0 0.0; 0.0 0.0 … 0.0 0.0], [5.386179958506469;;]), Any[[0.311, 0.208, 0.127, 0.06, 0.0, 1.5, 2.5, 3.5, 5.0, 10.0], [0.311, 0.208, 0.127, 0.06, 0.0, 1.5, 2.5, 3.5, 5.0, 10.0]], CubeLDFAModel.Cube{Float64}([0.027794, 0.04814, 0.351539], (100, 100, 100), PeriodicCell{Float64}([11.1175 -5.5588 0.0; 0.0 9.628 0.0; 0.0 0.0 70.3079], [0.08994827973915 0.051932332510800476 0.0; 0.0 0.1038637307852098 0.0; 0.0 0.0 0.014223152732480987], Bool[1, 1, 1], [0.0, 0.0, 0.0], [0.0, 0.0, 0.0], Bool[0, 0, 0]), [226.88483 177.90594 … 139.98084 209.19731; 177.90506 164.14418 … 82.743512 139.98084; … ; 139.98052 82.742731 … 164.14422 177.90599; 209.19663 139.98052 … 177.90511 226.88489;;; 8.049642 7.8383691 … 7.6327501 7.9785833; 7.8381475 7.7690614 … 7.1749416 7.6327535; … ; 7.6323286 7.1732512 … 7.769056 7.8383659; 7.9785068 7.632331 … 7.8381433 8.0496409;;; 0.85312313 0.84014091 … 0.82743106 0.84876713; 0.84013169 0.83586651 … 0.79878911 0.82742884; … ; 0.82741213 0.7987105 … 0.83587289 0.84014515; 0.84876367 0.82740994 … 0.84013594 0.85312519;;; … ;;; 0.8837023 0.87094919 … 0.85846399 0.87942271; 0.87092654 0.86674127 … 0.83036493 0.85846116; … ; 0.85842135 0.83016995 … 0.8667489 0.87095411; 0.87941609 0.85841891 … 0.87093184 0.88370481;;; 8.0533957 7.8419094 … 7.6361041 7.9822691; 7.8421028 7.7728025 … 7.1770574 7.6360964; … ; 7.6364753 7.1785203 … 7.7728233 7.8419227; 7.9823381 7.6364691 … 7.8421176 8.0534028;;; 226.90547 177.91402 … 139.98258 209.21293; 177.915 164.15031 … 82.74489 139.98258; … ; 139.98296 82.745671 … 164.15034 177.91404; 209.21368 139.98296 … 177.91502 226.9055]), [0.0, 0.0], [0.0, 0.0], [1, 2], PeriodicCell{Float64}([11.1175 -5.5588 0.0; 0.0 9.628 0.0; 0.0 0.0 70.3079], [0.08994827973915 0.051932332510800476 0.0; 0.0 0.1038637307852098 0.0; 0.0 0.0 0.014223152732480987], Bool[1, 1, 1], [0.0, 0.0, 0.0], [0.0, 0.0, 0.0], Bool[0, 0, 0]))</code></pre><p>Now we can pass all the variables defined so far to the <code>Simulation</code> and run multiple trajectories using <a href="../../ensemble_simulations/#NQCDynamics.Ensembles.run_dynamics"><code>run_dynamics</code></a>.</p><pre><code class="language-julia hljs">sim = Simulation{MDEF}(atoms, model, cell=cell, temperature=300u&quot;K&quot;)
+ensemble = run_dynamics(sim, tspan, distribution;selection=1:20,
+    dt=0.1u&quot;fs&quot;, output=OutputPosition, trajectories=20, callback=terminate)</code></pre><h2 id="MDEF-with-neural-network-friction"><a class="docs-heading-anchor" href="#MDEF-with-neural-network-friction">MDEF with neural network friction</a><a id="MDEF-with-neural-network-friction-1"></a><a class="docs-heading-anchor-permalink" href="#MDEF-with-neural-network-friction" title="Permalink"></a></h2><p>Above, we used the LDFA interpretation of MDEF to perform the simulation. However, the <a href="../../api/NQCModels/nninterfaces/#NNInterfaces.H2AgModel"><code>H2AgModel</code></a> actually provides it&#39;s own friction tensor trained on <em>ab initio</em> data. This can be used by simply using the model directly, without wrapping it with the <a href="../../api/NQCModels/cubeldfamodel/#CubeLDFAModel.LDFAModel"><code>LDFAModel</code></a>.</p><pre><code class="language-julia hljs">model = H2AgModel()
+sim = Simulation{MDEF}(atoms, model, cell=cell, temperature=300u&quot;K&quot;)
+ensemble = run_dynamics(sim, tspan, distribution;selection=1:20,
+    dt=0.1u&quot;fs&quot;, output=OutputPosition, trajectories=20, callback=terminate)</code></pre><h2 id="Visualisation"><a class="docs-heading-anchor" href="#Visualisation">Visualisation</a><a id="Visualisation-1"></a><a class="docs-heading-anchor-permalink" href="#Visualisation" title="Permalink"></a></h2><p>To show the effect of the truncation procedure, we have run 20 trajectories with and without the truncation function starting with an initial translation energy at 1.0 eV. For both figures, the total and kinetic energies are shown in the top panels along with the H-H distance and centre of mass z coordinate for each individual trajectory.</p><p><img src="../../assets/figures/scattering_truncation.png" alt="truncation"/></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../../output_and_analysis/intro/">« Simulations outputs and analysis functions</a><a class="docs-footer-nextpage" href="../spinboson/">Ohmic spin-boson nonequilibrium population dynamics »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.5.0 on <span class="colophon-date" title="Friday 16 August 2024 14:25">Friday 16 August 2024</span>. Using Julia version 1.10.4.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
