@@ -3,7 +3,7 @@ uuid = "36248dfb-79eb-4f4d-ab9c-e29ea5f33e14"
 authors = ["James <james.gardner1421@gmail.com>"]
 
 
-version = "0.15.1"
+version = "0.15.2"
 
 
 [deps]
@@ -65,7 +65,7 @@ FastLapackInterface = "1, 2"
 HDF5 = "0.15, 0.16, 0.17"
 Interpolations = "0.13, 0.14, 0.15"
 MuladdMacro = "0.2"
-NQCBase = "0.2"
+NQCBase = "0.2,0.3"
 NQCDistributions = "0.1"
 NQCModels = "0.9"
 Optim = "1"
