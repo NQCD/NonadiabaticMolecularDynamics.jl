@@ -1,10 +1,7 @@
 name = "NQCDynamics"
 uuid = "36248dfb-79eb-4f4d-ab9c-e29ea5f33e14"
 authors = ["James <james.gardner1421@gmail.com>"]
-
-
 version = "0.15.1"
-
 
 [deps]
 AdvancedHMC = "0bf59076-c3b1-5ca4-86bd-e02cd72cde3d"
@@ -53,7 +50,7 @@ UnitfulAtomic = "a7773ee8-282e-5fa2-be4e-bd808c38a91a"
 MACEModels = "29bafc4c-4f38-420f-a153-8a5a5e0bd5f6"
 
 [compat]
-AdvancedHMC = "0.5, 0.6"
+AdvancedHMC = "0.5, 0.6, 0.7"
 AdvancedMH = "0.8"
 ComponentArrays = "0.11, 0.12, 0.13, 0.14, 0.15"
 DEDataArrays = "0.2"
